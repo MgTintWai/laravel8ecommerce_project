@@ -198,7 +198,7 @@ class CheckoutComponent extends Component
             $stripe = Stripe::make(env('STRIPE_KEY'));
 
             try{
-                $token = $stripe->token()->create([
+                $token = $stripe->tokens()->create([
                         'card'=>[
                             'number' => $this->card_no,
                             'exp_month'=>$this->exp_month,
@@ -233,7 +233,7 @@ class CheckoutComponent extends Component
                         ],
                         'source' => $token['id']
                     ]);
-                    $charge = $stripe ->charges()->create([
+                    $charge = $stripe->charges()->create([
                         'customer'=>$customer['id'],
                         'currency'=>'USD',
                         'amount'=>session()->get('checkout')['total'],
